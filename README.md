@@ -22,6 +22,130 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+# AI Learning Platform API
+
+A NestJS-based backend service that provides AI-powered learning content and interactive questions.
+
+## Setup Instructions
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm (v7 or higher)
+- A valid OpenAI API key
+- A valid Gemini API key
+
+### Environment Variables
+Create a `.env` file in the root directory with the following variables:
+```env
+OPENAI_API_KEY=your_openai_api_key
+GEMINI_API_KEY=your_gemini_api_key
+GEMINI_ENGINE=your_gemini_engine
+PORT=3000
+```
+
+### Installation
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run start:dev
+
+# Start production server
+npm run start:prod
+```
+
+## API Documentation
+
+### 1. Generate Playground Question
+Generate an age-appropriate question based on specified topics and difficulty level.
+
+**Endpoint:** `POST /api/v1/ai/playground`
+
+**Request Body:**
+```json
+{
+    "topics": "JavaScript",
+    "level": 2,
+    "age": 25
+}
+```
+
+**Response:**
+```json
+{
+    "text": "In modern JavaScript frameworks like React and Vue.js, how is 'undefined' increasingly being handled to prevent common errors related to missing data in components?",
+    "options": [
+        "Through the use of optional chaining and nullish coalescing operators for safer property access.",
+        "By globally replacing all 'undefined' values with a default placeholder value using a build-time script.",
+        "By throwing exceptions when 'undefined' values are encountered to force explicit handling.",
+        "By automatically converting 'undefined' values to empty strings during component rendering."
+    ],
+    "correctAnswer": 0,
+    "explanation": {
+        "correct": "Optional chaining and nullish coalescing allow safer access to nested properties, preventing errors.",
+        "key_point": "Safer property access."
+    },
+    "difficulty": 2,
+    "topic": "JavaScript",
+    "subtopic": "Undefined Handling",
+    "questionType": "Conceptual",
+    "ageGroup": "25"
+}
+```
+
+### 2. Explore Content
+Generate exploratory content with related topics and follow-up questions.
+
+**Endpoint:** `POST /api/v1/ai/explore`
+
+**Request Body:**
+```json
+{
+    "query": "What is the Internet?",
+    "age": 25
+}
+```
+
+**Response:**
+```json
+{
+    "text": "The Internet is basically a massive network connecting billions of devices globally...",
+    "topics": [
+        {
+            "topic": "TCP/IP protocol",
+            "type": "prerequisite",
+            "reason": "Communication basis"
+        },
+        // ... more topics
+    ],
+    "questions": [
+        {
+            "question": "How does the Internet physically exist under the ocean floor?",
+            "type": "curiosity",
+            "context": "Physicality"
+        },
+        // ... more questions
+    ]
+}
+```
+
+## Rate Limiting
+The API implements the following rate limits per IP address:
+- 15 requests per minute
+- 250 requests per hour
+- 500 requests per day
+
+## Error Handling
+The API returns standard HTTP status codes:
+- 200: Success
+- 400: Bad Request
+- 429: Too Many Requests
+- 500: Internal Server Error
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
