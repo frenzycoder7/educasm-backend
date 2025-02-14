@@ -11,7 +11,7 @@ export class AppController {
   @Post("ai/explore")
   async explore(@Body() body: ExploreRequestDto) {
     try {
-      const response = await this.aiService.exploreQuery(body.query, body.age);
+      const response = await this.aiService.exploreQuery(body.query, body.age, body.followUP);
       return response;
     } catch (error) {
       throw new BadGatewayException(error.message);

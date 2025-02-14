@@ -62,7 +62,7 @@ export class AiPromptPattern {
 
 
 
-  static getExploreContentPromptV2(query: string, age: number) {
+  static getExploreContentPromptV2(query: string, age: number, followUP: string | null = null) {
     const systemPrompt = `You are a Gen-Z tutor who explains complex topics concisely considering you are teaching someone with a low IQ.
         First, identify the domain of the topic from these categories:
         - SCIENCE: Physics, Chemistry, Biology
@@ -75,6 +75,7 @@ export class AiPromptPattern {
         - PSYCHOLOGY: Human Behavior, Development
         - CURRENT_AFFAIRS: Global Events, Politics
         - GENERAL: Any other topic
+        - STOCK_MARKET: Stock Market, Investing, Finance
 
         Return your response in this EXACT JSON format:
         {
@@ -153,6 +154,9 @@ export class AiPromptPattern {
         - No repetition between paragraphs
         - Make every word count
         - Keep examples specific and brief
+        - If user asks for follow-up, provide a concise answer from that follow-up topic
+        - If there is no follow-up, provide a concise answer from the topic
+        
 
         SUBTOPIC GUIDELINES:
         - Focus on the most fascinating aspects
@@ -172,11 +176,15 @@ export class AiPromptPattern {
         - Spark imagination
         - Make reader think "I never thought about that!"`;
 
-    const userPrompt = `Explain "${query}" in approximately three 20-30 word paragraphs:
+    let userPrompt = `Explain "${query}" in approximately three 20-30 word paragraphs:
         1. Basic definition without using words like imagine
         2. more details
         3. Real-world application examples without using the word real world application
         Make it engaging for someone aged ${age}.`;
+
+    if (followUP) {
+      userPrompt += `\n\nUse the following follow-up topic: ${followUP}`;
+    }
 
     return {
       systemPrompt,

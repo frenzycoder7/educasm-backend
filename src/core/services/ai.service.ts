@@ -183,9 +183,10 @@ export class AIService {
     async exploreQuery(
         query: string,
         age: number,
+        followUP: string | null = null
     ): Promise<IExploreContent> {
         const messageId = uuidv4();
-        const { systemPrompt, userPrompt } = AiPromptPattern.getExploreContentPromptV2(query, age);
+        const { systemPrompt, userPrompt } = AiPromptPattern.getExploreContentPromptV2(query, age, followUP);
         const response = await this.makeRequest(systemPrompt, userPrompt, 2000)
         const data = JSON.parse(response)
         data.messageId = messageId;
