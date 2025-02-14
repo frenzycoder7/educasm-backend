@@ -98,10 +98,10 @@ export class AIService {
         }
     }
 
-    async getPlaygroundQuestion(topics: string, level: number, age: number): Promise<Question | null> {
+    async getPlaygroundQuestion(topic: string, level: number, age: number): Promise<Question | null> {
         try {
             const { systemPrompt, userPrompt } = AiPromptPattern.getQuestionPrompt(
-                topics,
+                topic,
                 level,
                 age,
                 AiPromptPattern.getPlaygroundQuestionAspects()
@@ -133,8 +133,8 @@ export class AIService {
                     key_point: shuffled.explanation?.key_point || 'Key learning point'
                 },
                 difficulty: level,
-                topic: shuffled.topic || topics,
-                subtopic: parsedContent.subtopic || topics,
+                topic: shuffled.topic || topic,
+                subtopic: parsedContent.subtopic || topic,
                 questionType: parsedContent.questionType || 'conceptual',
                 ageGroup: age.toString()
             };

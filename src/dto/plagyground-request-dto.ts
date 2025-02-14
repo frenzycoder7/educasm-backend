@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 export class PlaygroundRequestDto {
     @IsString()
     @IsNotEmpty()
-    topics: string;
+    topic: string;
 
     @IsNumber()
     @IsNotEmpty()

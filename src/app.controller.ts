@@ -21,7 +21,7 @@ export class AppController {
   @Post("ai/playground")
   async playground(@Body() body: PlaygroundRequestDto) {
     try {
-      const response = await this.aiService.getPlaygroundQuestion(body.topics, body.level, body.age);
+      const response = await this.aiService.getPlaygroundQuestion(body.topic, body.level, body.age);
       if (!response) {
         throw new BadGatewayException('Failed to generate question');
       }
