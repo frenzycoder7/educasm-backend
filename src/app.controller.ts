@@ -14,7 +14,7 @@ export class AppController {
       const response = await this.aiService.exploreQuery(body.query, body.age);
       return response;
     } catch (error) {
-      return new BadGatewayException(error.message);
+      throw new BadGatewayException(error.message);
     }
   }
 
@@ -23,11 +23,11 @@ export class AppController {
     try {
       const response = await this.aiService.getPlaygroundQuestion(body.topics, body.level, body.age);
       if (!response) {
-        return new BadGatewayException('Failed to generate question');
+        throw new BadGatewayException('Failed to generate question');
       }
       return response;
     } catch (error) {
-      return new BadGatewayException(error.message);
+      throw new BadGatewayException(error.message);
     }
   }
 }
