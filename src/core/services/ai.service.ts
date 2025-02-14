@@ -98,7 +98,7 @@ export class AIService {
         }
     }
 
-    async getPlaygroundQuestion(topics: string, level: number, age: number): Promise<Question> {
+    async getPlaygroundQuestion(topics: string, level: number, age: number): Promise<Question | null> {
         try {
             const { systemPrompt, userPrompt } = AiPromptPattern.getQuestionPrompt(
                 topics,
@@ -145,10 +145,11 @@ export class AIService {
                 return formattedQuestion;
             }
 
-            throw new Error('Generated question failed validation');
+            console.log('Generated question failed validation')
+            return null;
         } catch (error) {
             console.error('Question generation error:', error);
-            throw new Error('Failed to generate valid question');
+            return null;
         }
     }
 
