@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Question, ExploreResponse } from '../../types/';
+import { Question } from '../../types/';
 import OpenAI from 'openai';
 import { ConfigService } from '@nestjs/config';
 import { ConfigKeys } from 'src/config/config.keys';
-import { EnhancedGenerateContentResponse, GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { AiPromptPattern } from '../functions/ai-prompt-pattern';
 import { IExploreContent } from '../interfaces/explore-content.interface';
 import { v4 as uuidv4 } from 'uuid';

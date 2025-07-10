@@ -1,4 +1,4 @@
-import { BadGatewayException, BadRequestException, Body, Controller, Get, Post, Res } from '@nestjs/common';
+import { BadGatewayException, BadRequestException, Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { ExploreRequestDto } from './dto/explore-request.dto';
 import { AIService } from './core/services/ai.service';
 import { Response } from 'express';
@@ -28,6 +28,15 @@ export class AppController {
       return response;
     } catch (error) {
       throw new BadGatewayException(error.message);
+    }
+  }
+
+  @Get('static/:id')
+  async getStatic(@Param('id') id: string, @Res() res: Response) {
+    if (id === '1') {
+      return res.sendFile('../static/static-1/index.html');
+    } else if (id === '2') {
+      return res.sendFile('../static/static-2/index.html');
     }
   }
 }

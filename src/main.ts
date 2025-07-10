@@ -16,7 +16,10 @@ async function bootstrap() {
     logger.error('PORT is not set');
     process.exit(1);
   }
+
+
   await app.listen(port);
+
   logger.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
